@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Handle, Position } from 'reactflow';
+import { BaseNode } from './baseNode';
 
 export const TextNode = ({ id, data }) => {
   const [currText, setCurrText] = useState(data?.text || '{{input}}');
@@ -10,11 +11,12 @@ export const TextNode = ({ id, data }) => {
     setCurrText(e.target.value);
   };
 
+  const handles = [
+    { id: `${id}-output`, type: 'source', position: Position.Right },
+  ];
+
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <div>
-        <span>Text</span>
-      </div>
+    <BaseNode label="Text" handles={handles}>
       <div>
         <label>
           Text:
@@ -30,6 +32,6 @@ export const TextNode = ({ id, data }) => {
         position={Position.Right}
         id={`${id}-output`}
       />
-    </div>
+    </BaseNode>
   );
 }
