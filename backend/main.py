@@ -21,9 +21,6 @@ def parse_pipeline(pipeline: str = Form(...)):
     nodes = data.get('nodes', [])
     edges = data.get('edges', [])
 
-    print('Format of nodes:' + str(nodes[0]))
-    print('Format of edges:' + str(edges[0]))
-
     V = len(nodes)
     E = len(edges)
 
