@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
+from collections import deque
 import json
 
 app = FastAPI()
@@ -31,31 +32,22 @@ def parse_pipeline(pipeline: str = Form(...)):
         if edge['source'] in adj:
             adj[edge['source']].append(edge['target'])
 
-    visited = {}
-    rec_stack = {}
-    for node in nodes:
-        visited[node['id']] = False
-        rec_stack[node['id']] = False
+    in_degree = {node['id']: 0 for node in nodes}
+    for edge in edges:
+        if edge['target'] in in_degree:
+            in_degree[edge['target']] += 1
 
-    def is_cyclic_util(u):
-        visited[u] = True
-        rec_stack[u] = True
+    queue = deque([nid for nid, deg in in_degree.items() if deg == 0])
+    processed = 0
 
+    while queue:
+        u = queue.popleft()
+        processed += 1
         for v in adj[u]:
-            if not visited[v]:
-                if is_cyclic_util(v):
-                    return True
-            elif rec_stack[v]:
-                return True
+            in_degree[v] -= 1
+            if in_degree[v] == 0:
+                queue.append(v)
 
-        rec_stack[u] = False
-        return False
-
-    is_cycle = False
-    for node in nodes:
-        if not visited[node['id']]:
-            if is_cyclic_util(node['id']):
-                is_cycle = True
-                break
+    is_cycle = processed != V
 
     return {'num_nodes': V, 'num_edges': E, 'is_dag': not is_cycle}
