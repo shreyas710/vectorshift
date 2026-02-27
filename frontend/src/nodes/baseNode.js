@@ -10,9 +10,9 @@ const handleStyle = {
     boxShadow: '0 0 0 1px #6366f1',
 };
 
-export const BaseNode = ({ label, handles = [], children }) => {
+export const BaseNode = ({ label, handles = [], children, nodeWidth }) => {
     return (
-        <div className="bg-white border border-slate-200 rounded-xl shadow-md w-[220px] min-h-[80px] font-sans">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-md min-h-[80px] font-sans" style={{ width: nodeWidth ?? 220 }}>
             {handles.map((handle) => (
                 <Handle
                     type={handle.type}
