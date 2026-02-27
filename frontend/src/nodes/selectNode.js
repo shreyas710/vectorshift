@@ -13,14 +13,18 @@ export const SelectNode = ({ id, data }) => {
 
   return (
     <BaseNode label="Select" handles={handles}>
-      <label>
-        Option:
-        <select value={selected} onChange={(e) => setSelected(e.target.value)}>
+      <div className="flex flex-col gap-0.5">
+        <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">Option</label>
+        <select
+          value={selected}
+          onChange={(e) => setSelected(e.target.value)}
+          className="w-full px-2 py-1 border border-slate-200 rounded-md text-xs text-slate-800 bg-slate-50 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-colors cursor-pointer"
+        >
           <option value="option1">Option 1</option>
           <option value="option2">Option 2</option>
           <option value="option3">Option 3</option>
         </select>
-      </label>
+      </div>
     </BaseNode>
   );
 };

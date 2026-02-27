@@ -22,23 +22,28 @@ export const InputNode = ({ id, data }) => {
 
   return (
     <BaseNode label="Input" handles={handles}>
-      <div>
-        <label>
-          Name:
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-0.5">
+          <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">Name</label>
           <input
             type="text"
             value={currName}
             onChange={handleNameChange}
+            className="w-full px-2 py-1 border border-slate-200 rounded-md text-xs text-slate-800 bg-slate-50 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-colors"
           />
-        </label>
-        <label>
-          Type:
-          <select value={inputType} onChange={handleTypeChange}>
+        </div>
+        <div className="flex flex-col gap-0.5">
+          <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">Type</label>
+          <select
+            value={inputType}
+            onChange={handleTypeChange}
+            className="w-full px-2 py-1 border border-slate-200 rounded-md text-xs text-slate-800 bg-slate-50 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-colors cursor-pointer"
+          >
             <option value="Text">Text</option>
             <option value="File">File</option>
           </select>
-        </label>
+        </div>
       </div>
     </BaseNode>
   );
-}
+};
